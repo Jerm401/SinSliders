@@ -10,7 +10,7 @@ export function NavBar() {
     const handleScroll = () => {
       const heroHeight = window.innerHeight;
       setScrolled(window.scrollY > 50);
-      setPastHero(window.scrollY > heroHeight * 0.5);
+      setPastHero(window.scrollY > heroHeight * 0.3);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
