@@ -32,6 +32,7 @@ export function NavBar() {
           <Button 
             variant="ghost"
             className="text-white hover:text-gold"
+            onClick={() => window.location.href = '/rules'}
           >
             How to Play
           </Button>
