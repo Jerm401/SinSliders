@@ -23,12 +23,11 @@ export function NavBar() {
       }`}
     >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <a href="/" className={`flex items-center gap-2 text-2xl font-bold text-gold transition-opacity duration-300 ${
-          pastHero ? "opacity-100" : "opacity-100"
+        <h1 className={`text-2xl font-bold text-gold transition-opacity duration-300 ${
+          pastHero ? "opacity-100" : "opacity-0"
         }`}>
-          <img src="/logo.png" alt="Sin Game Logo" className="h-8 w-auto" />
           The Sin Game
-        </a>
+        </h1>
         <div className="flex gap-4">
           <Button 
             variant="ghost"
