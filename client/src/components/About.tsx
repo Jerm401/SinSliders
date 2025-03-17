@@ -24,12 +24,14 @@ export function About() {
             <Button 
               variant="outline" 
               className="text-gold border-gold hover:bg-gold/10"
+              onClick={() => window.location.href = '/rules'}
             >
               Game Rules
             </Button>
             <Button 
               variant="outline"
               className="text-gold border-gold hover:bg-gold/10"
+              onClick={() => window.location.href = '/about'}
             >
               Learn More
             </Button>
