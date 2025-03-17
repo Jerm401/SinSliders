@@ -1,9 +1,4 @@
-import { SinCard } from "./SinCard";
 import { motion } from "framer-motion";
-
-const sinDescriptions = Array(19).fill(
-  "A mysterious sin awaits to be discovered..."
-);
 
 export function About() {
   return (
@@ -24,16 +19,6 @@ export function About() {
             maybe even absolve yourself in this wickedly fun party game!
           </p>
         </motion.div>
-
-        <div className="sin-card-grid">
-          {sinDescriptions.map((description, index) => (
-            <SinCard 
-              key={index}
-              index={index}
-              description={description}
-            />
-          ))}
-        </div>
       </div>
     </section>
   );
