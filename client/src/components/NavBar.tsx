@@ -1,12 +1,8 @@
 
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { Home } from "lucide-react";
 
 export function NavBar() {
-  const location = useLocation();
-  const isHomePage = location.pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [pastHero, setPastHero] = useState(false);
 
@@ -33,16 +29,6 @@ export function NavBar() {
           The Sin Game
         </h1>
         <div className="flex gap-4">
-          {!isHomePage && (
-            <Button
-              variant="ghost"
-              className="text-white hover:text-gold"
-              onClick={() => window.location.href = '/'}
-            >
-              <Home className="size-4" />
-              Home
-            </Button>
-          )}
           <Button 
             variant="ghost"
             className="text-white hover:text-gold"
