@@ -15,9 +15,10 @@ export function About() {
             About The Game
           </h2>
           <p className="text-lg text-white/90">
-            What's up sinners! Welcome to The Sin Game, where your darkest secrets
-            and guilty pleasures come to play. Get ready to reveal, confess, and
-            maybe even absolve yourself in this wickedly fun party game!
+            Welcome to The Sin Game, a Catholic themed party game of moral judgment, strategic 
+            deception, and divine intervention. Players take on the role of 
+            sinners navigating the perilous path between Heaven and Hell, striving 
+            for salvation while avoiding eternal damnation.
           </p>
           <div className="flex gap-4 justify-center mt-8">
             <Button 
