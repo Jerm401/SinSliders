@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 
 export function About() {
   return (
@@ -18,6 +19,20 @@ export function About() {
             and guilty pleasures come to play. Get ready to reveal, confess, and
             maybe even absolve yourself in this wickedly fun party game!
           </p>
+          <div className="flex gap-4 justify-center mt-8">
+            <Button 
+              variant="outline" 
+              className="text-gold border-gold hover:bg-gold/10"
+            >
+              Game Rules
+            </Button>
+            <Button 
+              variant="outline"
+              className="text-gold border-gold hover:bg-gold/10"
+            >
+              Learn More
+            </Button>
+          </div>
         </motion.div>
       </div>
     </section>
