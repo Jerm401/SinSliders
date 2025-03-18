@@ -6,7 +6,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        cinzel: ['Cinzel', 'serif'],
+        'eb-garamond': ['EB Garamond', 'serif'],
         'cinzel-decorative': ['Cinzel Decorative', 'cursive'],
       },
       borderRadius: {

@@ -11,7 +11,7 @@
   }
 
   body {
-    @apply font-cinzel antialiased bg-black text-foreground;
+    @apply font-eb-garamond antialiased bg-black text-foreground;
   }
 
   h1, h2, h3, h4, h5, h6 {

@@ -13,6 +13,7 @@
   "dependencies": {
     "@fontsource/cinzel": "^5.2.5",
     "@fontsource/cinzel-decorative": "^5.2.5",
+    "@fontsource/eb-garamond": "^5.2.5",
     "@hookform/resolvers": "^3.9.1",
     "@jridgewell/trace-mapping": "^0.3.25",
     "@neondatabase/serverless": "^0.10.4",
