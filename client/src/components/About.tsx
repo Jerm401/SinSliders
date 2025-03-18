@@ -4,8 +4,8 @@ import { CardGrid } from "./CardGrid";
 
 export function About() {
   return (
-    <section className="min-h-screen bg-midnight py-20 px-4">
-      <div className="container mx-auto">
+    <section className="min-h-screen bg-midnight py-20">
+      <div className="">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
