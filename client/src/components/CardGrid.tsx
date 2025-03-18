@@ -50,7 +50,7 @@ export function CardGrid() {
     <div className="w-full mx-auto px-4">
       <AnimatePresence>
         <motion.div
-          className="flex flex-wrap gap-6 justify-center px-6"
+          className="flex overflow-x-auto scroll-snap-x gap-6 px-6 pb-6 md:flex-wrap md:justify-center"
           initial="initial"
           animate="animate"
           exit="exit"
@@ -68,7 +68,7 @@ export function CardGrid() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
             >
-              <div className={isShuffling ? 'animate-shake' : ''}>
+              <div className={`scroll-snap-center ${isShuffling ? 'animate-shake' : ''}`}>
                 <SinCard
                   key={`${cardNumber}-${index}`}
                   frontImage={`/sin-card-${cardNumber}.jpg`}
