@@ -20,8 +20,7 @@ export type User = typeof users.$inferSelect;
 // Game related types
 export enum GameStage {
   INITIAL = "INITIAL",
-  CARDS_IN_ROW = "CARDS_IN_ROW",
-  CARDS_REVEALED = "CARDS_REVEALED",
+  ORDER_AND_REVEAL = "ORDER_AND_REVEAL",
   TOKEN_AWARDS = "TOKEN_AWARDS",
   BLESSING_CURSE = "BLESSING_CURSE",
 }
@@ -47,8 +46,7 @@ export interface GameState {
 
 export const gameStageLabels: Record<GameStage, string> = {
   [GameStage.INITIAL]: "Place your cards",
-  [GameStage.CARDS_IN_ROW]: "Order your sins",
-  [GameStage.CARDS_REVEALED]: "Reveal your sins",
+  [GameStage.ORDER_AND_REVEAL]: "Order and reveal your sins",
   [GameStage.TOKEN_AWARDS]: "Receive judgment",
   [GameStage.BLESSING_CURSE]: "Final verdict",
 };

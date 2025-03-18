@@ -23,35 +23,35 @@ import { Card, GameStage, GameState, gameStageLabels } from "@shared/schema";
 const INITIAL_CARDS: Card[] = [
   {
     id: "1",
-    frontImage: "/sin-card-1.jpg",
+    frontImage: "/sin-cards/sin-card-1.jpg",
     title: "Pride",
     description: "Pride comes before the fall",
     isRevealed: false,
   },
   {
     id: "2",
-    frontImage: "/sin-card-2.jpg",
+    frontImage: "/sin-cards/sin-card-2.jpg",
     title: "Greed",
     description: "The love of money is the root of all evil",
     isRevealed: false,
   },
   {
     id: "3",
-    frontImage: "/sin-card-3.jpg",
+    frontImage: "/sin-cards/sin-card-3.jpg",
     title: "Lust",
     description: "Lustful desires lead to destruction",
     isRevealed: false,
   },
   {
     id: "4",
-    frontImage: "/sin-card-4.jpg",
+    frontImage: "/sin-cards/sin-card-4.jpg",
     title: "Envy",
     description: "Envy rots the bones",
     isRevealed: false,
   },
   {
     id: "5",
-    frontImage: "/sin-card-5.jpg",
+    frontImage: "/sin-cards/sin-card-5.jpg",
     title: "Wrath",
     description: "Anger leads to hate",
     isRevealed: false,
@@ -112,7 +112,7 @@ export function GameDemo() {
   }, []);
 
   const handleCardClick = useCallback((cardId: string) => {
-    if (gameState.stage !== GameStage.CARDS_REVEALED) return;
+    if (gameState.stage !== GameStage.ORDER_AND_REVEAL) return;
 
     setGameState((state) => ({
       ...state,
@@ -134,10 +134,8 @@ export function GameDemo() {
       const newStage = (() => {
         switch (state.stage) {
           case GameStage.INITIAL:
-            return GameStage.CARDS_IN_ROW;
-          case GameStage.CARDS_IN_ROW:
-            return GameStage.CARDS_REVEALED;
-          case GameStage.CARDS_REVEALED:
+            return GameStage.ORDER_AND_REVEAL;
+          case GameStage.ORDER_AND_REVEAL:
             return GameStage.TOKEN_AWARDS;
           case GameStage.TOKEN_AWARDS:
             return GameStage.BLESSING_CURSE;
