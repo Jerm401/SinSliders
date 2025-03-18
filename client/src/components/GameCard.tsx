@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 interface GameCardProps extends CardType {
   index: number;
-  dragHandle?: React.ReactNode;
+  onClick?: () => void;
 }
 
 export function GameCard({ 
@@ -18,19 +18,20 @@ export function GameCard({
   hasBlessing,
   hasCurse,
   index,
-  dragHandle
+  onClick
 }: GameCardProps) {
   return (
     <motion.div
-      className="relative w-48 aspect-[2/3]"
+      className="relative w-48 aspect-[2/3] cursor-pointer"
       whileHover={{ scale: 1.05 }}
       layout
       layoutId={id}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      onClick={onClick}
     >
       <Card 
         className={cn(
-          "w-full h-full rounded-lg overflow-hidden cursor-pointer perspective-1000",
+          "w-full h-full rounded-lg overflow-hidden perspective-1000",
           "transition-transform duration-500 transform-style-3d",
           isRevealed && "rotate-y-180"
         )}
@@ -47,7 +48,6 @@ export function GameCard({
             alt="Card Back"
             className="w-full h-full object-cover"
           />
-          {dragHandle}
         </motion.div>
 
         {/* Back of card */}

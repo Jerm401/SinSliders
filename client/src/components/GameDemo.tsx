@@ -19,7 +19,6 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { GameCard } from "./GameCard";
 import { Card, GameStage, GameState, gameStageLabels } from "@shared/schema";
-import { GripHorizontal } from "lucide-react";
 
 const INITIAL_CARDS: Card[] = [
   {
@@ -71,23 +70,14 @@ function SortableCard(props: Card & { index: number }) {
   return (
     <div
       ref={setNodeRef}
+      {...attributes}
+      {...listeners}
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
       }}
     >
-      <GameCard
-        {...props}
-        dragHandle={
-          <div
-            {...attributes}
-            {...listeners}
-            className="absolute top-2 left-2 w-8 h-8 bg-white/10 rounded-full flex items-center justify-center cursor-grab active:cursor-grabbing"
-          >
-            <GripHorizontal className="w-4 h-4 text-white/50" />
-          </div>
-        }
-      />
+      <GameCard {...props} />
     </div>
   );
 }
