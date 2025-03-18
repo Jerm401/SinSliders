@@ -4,13 +4,10 @@ import { useState, useEffect } from "react";
 
 export function NavBar() {
   const [scrolled, setScrolled] = useState(false);
-  const [pastHero, setPastHero] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const heroHeight = window.innerHeight;
       setScrolled(window.scrollY > 50);
-      setPastHero(window.scrollY > heroHeight * 0.3);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -23,11 +20,13 @@ export function NavBar() {
       }`}
     >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <h1 className={`text-2xl font-bold text-gold transition-opacity duration-300 ${
-          pastHero ? "opacity-100" : "opacity-0"
-        }`}>
-          The Sin Game
-        </h1>
+        <a href="/" className="flex items-center">
+          <img 
+            src="/logo.png" 
+            alt="The Sin Game" 
+            className="h-8 transition-opacity duration-300"
+          />
+        </a>
         <div className="flex gap-4">
           <Button 
             variant="ghost"
