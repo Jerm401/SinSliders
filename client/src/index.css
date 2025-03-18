@@ -10,8 +10,22 @@
     --gold: #d8b15c;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply font-eb-garamond antialiased bg-black text-foreground text-lg;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh;
+  }
+
+  section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    min-height: 100vh;
+    max-height: max-content;
   }
 
   h1,
