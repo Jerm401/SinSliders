@@ -4,10 +4,13 @@ import { useState, useEffect } from "react";
 
 export function NavBar() {
   const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
+      const heroHeight = window.innerHeight;
       setScrolled(window.scrollY > 50);
+      setPastHero(window.scrollY > heroHeight * 0.7);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -24,7 +27,9 @@ export function NavBar() {
           <img 
             src="/logo.png" 
             alt="The Sin Game" 
-            className="h-8 transition-opacity duration-300"
+            className={`h-8 transition-opacity duration-300 ${
+              pastHero ? "opacity-100" : "opacity-0"
+            }`}
           />
         </a>
         <div className="flex gap-4">
