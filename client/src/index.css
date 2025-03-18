@@ -40,7 +40,15 @@
     left: 0;
     right: 0;
     z-index: 100;
+  }
+
+  nav::before {
+    content: '';
+    position: absolute;
+    inset: 0;
     padding-right: calc(100vw - 100%);
+    background: inherit;
+    z-index: -1;
   }
 
   section {
