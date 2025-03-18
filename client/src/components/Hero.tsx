@@ -48,7 +48,7 @@ export function Hero() {
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-6xl md:text-8xl font-bold text-gold mb-8"
+          className="text-6xl md:text-8xl font-bold text-gold mb-8 accent-gold"
         >
           The Sin Game
         </motion.h1>

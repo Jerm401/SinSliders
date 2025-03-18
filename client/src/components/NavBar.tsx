@@ -39,7 +39,7 @@ export function NavBar() {
           >
             How to Play
           </Button>
-          <Button className="bg-blood hover:bg-blood/80 text-white">
+          <Button className="bg-gold hover:bg-gold/80 text-white">
             Buy Now
           </Button>
         </div>
