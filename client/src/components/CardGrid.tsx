@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { SinCard } from "./SinCard";
 import { Button } from "@/components/ui/button";
 import { Shuffle } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Total number of sin cards available
 const TOTAL_CARDS = 19;
@@ -31,20 +32,33 @@ export function CardGrid() {
 
   return (
     <div className="w-full mx-auto px-4">
-    
-      <div className="flex flex-wrap gap-6 justify-center px-6">
-        {selectedCards.map((cardNumber, index) => (
-          <SinCard
-            key={`${cardNumber}-${index}`}
-            frontImage={`/sin-card-${cardNumber}.jpg`}
-            isFlipped={flippedCards[index] || false}
-            onClick={() => handleCardClick(index)}
-          />
-        ))}
-      </div>
-      
+
+      <AnimatePresence>
+        <motion.div className="flex flex-wrap gap-6 justify-center px-6"
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          transition={{ duration: 0.5, type: "spring", stiffness: 100, damping: 20 }}
+        >
+          {selectedCards.map((cardNumber, index) => (
+            <motion.div key={`${cardNumber}-${index}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+            >
+              <SinCard
+                key={`${cardNumber}-${index}`}
+                frontImage={`/sin-card-${cardNumber}.jpg`}
+                isFlipped={flippedCards[index] || false}
+                onClick={() => handleCardClick(index)}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+      </AnimatePresence>
+
       <div className="flex justify-center mb-6">
-        <Button 
+        <Button
           onClick={shuffleCards}
           variant="outline"
           className="text-gold border-gold hover:bg-gold/10 gap-2"
