@@ -75,6 +75,15 @@
     scroll-snap-align: center;
   }
 
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
   .hero-gradient {
     background: linear-gradient(to bottom,
         rgba(0, 0, 0, 0.8) 50%,
