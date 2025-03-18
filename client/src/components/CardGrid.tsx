@@ -10,19 +10,23 @@ const DISPLAY_CARDS = 5;
 
 export function CardGrid() {
   const [selectedCards, setSelectedCards] = useState<number[]>([]);
-  const [flippedCards, setFlippedCards] = useState<{ [key: number]: boolean }>({});
+  const [flippedCards, setFlippedCards] = useState<{ [key: number]: boolean }>(
+    {},
+  );
 
   const shuffleCards = () => {
     const allCards = Array.from({ length: TOTAL_CARDS }, (_, i) => i + 1);
-    const shuffled = allCards.sort(() => Math.random() - 0.5).slice(0, DISPLAY_CARDS);
+    const shuffled = allCards
+      .sort(() => Math.random() - 0.5)
+      .slice(0, DISPLAY_CARDS);
     setSelectedCards(shuffled);
     setFlippedCards({});
   };
 
   const handleCardClick = (index: number) => {
-    setFlippedCards(prev => ({
+    setFlippedCards((prev) => ({
       ...prev,
-      [index]: !prev[index]
+      [index]: !prev[index],
     }));
   };
 
@@ -32,16 +36,22 @@ export function CardGrid() {
 
   return (
     <div className="w-full mx-auto px-4">
-
       <AnimatePresence>
-        <motion.div className="flex flex-wrap gap-6 justify-center px-6"
+        <motion.div
+          className="flex flex-wrap gap-6 justify-center px-6"
           initial="initial"
           animate="animate"
           exit="exit"
-          transition={{ duration: 0.5, type: "spring", stiffness: 100, damping: 20 }}
+          transition={{
+            duration: 0.5,
+            type: "spring",
+            stiffness: 100,
+            damping: 20,
+          }}
         >
           {selectedCards.map((cardNumber, index) => (
-            <motion.div key={`${cardNumber}-${index}`}
+            <motion.div
+              key={`${cardNumber}-${index}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
@@ -64,7 +74,7 @@ export function CardGrid() {
           className="text-gold border-gold hover:bg-gold/10 gap-2"
         >
           <Shuffle className="w-5 h-5" />
-          Shuffle Cards
+          Shuffle
         </Button>
       </div>
     </div>
