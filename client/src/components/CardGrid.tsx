@@ -81,16 +81,26 @@ export function CardGrid() {
         </motion.div>
       </AnimatePresence>
 
-      <div className="flex justify-center my-8">
-        <Button
-          onClick={shuffleCards}
-          variant="outline"
-          className="text-gold border-gold hover:bg-gold/10 gap-2"
-        >
-          <Shuffle className="w-5 h-5" />
-          Shuffle
-        </Button>
-      </div>
+      <AnimatePresence>
+        {Object.values(flippedCards).some(Boolean) && (
+          <motion.div 
+            className="flex justify-center my-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Button
+              onClick={shuffleCards}
+              variant="outline"
+              className="text-gold border-gold hover:bg-gold/10 gap-2"
+            >
+              <Shuffle className="w-5 h-5" />
+              Shuffle
+            </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
