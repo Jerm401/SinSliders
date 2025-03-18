@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { GameDemo } from "./GameDemo";
 
 export function About() {
   return (
@@ -36,6 +37,18 @@ export function About() {
               Learn More
             </Button>
           </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="max-w-6xl mx-auto"
+        >
+          <h3 className="text-3xl font-bold text-gold text-center mb-8">
+            Try the Game
+          </h3>
+          <GameDemo />
         </motion.div>
       </div>
     </section>
