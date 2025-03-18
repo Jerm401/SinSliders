@@ -50,10 +50,16 @@ export function CardGrid() {
     <div className="w-full mx-auto px-4">
       <AnimatePresence>
         <motion.div
-          className="flex overflow-x-scroll scroll-snap-x gap-6 px-6 pb-6 md:flex-wrap md:justify-center touch-pan-x"
+          className="flex overflow-x-auto scroll-snap-x gap-6 px-6 pb-6 md:flex-wrap md:justify-center"
           initial="initial"
           animate="animate"
           exit="exit"
+          style={{ cursor: "grab" }}
+          drag="x"
+          dragConstraints={{ left: -1000, right: 0 }}
+          dragElastic={0.1}
+          dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
+          whileTap={{ cursor: "grabbing" }}
           transition={{
             duration: 0.5,
             type: "spring",
