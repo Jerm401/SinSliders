@@ -14,13 +14,19 @@ export function CardGrid() {
     {},
   );
 
+  const [isShuffling, setIsShuffling] = useState(false);
+
   const shuffleCards = () => {
-    const allCards = Array.from({ length: TOTAL_CARDS }, (_, i) => i + 1);
-    const shuffled = allCards
-      .sort(() => Math.random() - 0.5)
-      .slice(0, DISPLAY_CARDS);
-    setSelectedCards(shuffled);
-    setFlippedCards({});
+    setIsShuffling(true);
+    setTimeout(() => {
+      const allCards = Array.from({ length: TOTAL_CARDS }, (_, i) => i + 1);
+      const shuffled = allCards
+        .sort(() => Math.random() - 0.5)
+        .slice(0, DISPLAY_CARDS);
+      setSelectedCards(shuffled);
+      setFlippedCards({});
+      setTimeout(() => setIsShuffling(false), 500);
+    }, 500);
   };
 
   const handleCardClick = (index: number) => {
@@ -56,12 +62,14 @@ export function CardGrid() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
             >
-              <SinCard
-                key={`${cardNumber}-${index}`}
-                frontImage={`/sin-card-${cardNumber}.jpg`}
-                isFlipped={flippedCards[index] || false}
-                onClick={() => handleCardClick(index)}
-              />
+              <div className={isShuffling ? 'animate-shake' : ''}>
+                <SinCard
+                  key={`${cardNumber}-${index}`}
+                  frontImage={`/sin-card-${cardNumber}.jpg`}
+                  isFlipped={flippedCards[index] || false}
+                  onClick={() => handleCardClick(index)}
+                />
+              </div>
             </motion.div>
           ))}
         </motion.div>
