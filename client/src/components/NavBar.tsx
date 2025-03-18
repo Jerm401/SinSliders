@@ -7,10 +7,13 @@ export function NavBar() {
 
   useEffect(() => {
     const handleScroll = () => {
+      const scrollPosition = window.scrollY;
       const heroHeight = window.innerHeight;
-      setScrolled(window.scrollY > 50);
-      setPastHero(window.scrollY > heroHeight * 0.3);
+      setScrolled(scrollPosition > 50);
+      setPastHero(scrollPosition > heroHeight * 0.5);
     };
+    
+    handleScroll(); // Check initial scroll position
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
