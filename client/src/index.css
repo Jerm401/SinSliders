@@ -48,10 +48,11 @@
     scroll-snap-stop: always;
     /* Ensure it always stops at a snap point */
     min-height: 100vh;
-    height: 100vh;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 4rem 0;
   }
 
   h1,
