@@ -18,15 +18,13 @@ export function CardGrid() {
 
   const shuffleCards = () => {
     setIsShuffling(true);
-    setTimeout(() => {
-      const allCards = Array.from({ length: TOTAL_CARDS }, (_, i) => i + 1);
-      const shuffled = allCards
-        .sort(() => Math.random() - 0.5)
-        .slice(0, DISPLAY_CARDS);
-      setSelectedCards(shuffled);
-      setFlippedCards({});
-      setTimeout(() => setIsShuffling(false), 500);
-    }, 500);
+    const allCards = Array.from({ length: TOTAL_CARDS }, (_, i) => i + 1);
+    const shuffled = allCards
+      .sort(() => Math.random() - 0.5)
+      .slice(0, DISPLAY_CARDS);
+    setSelectedCards(shuffled);
+    setFlippedCards({});
+    setTimeout(() => setIsShuffling(false), 500);
   };
 
   const handleCardClick = (index: number) => {
