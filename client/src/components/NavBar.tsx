@@ -22,8 +22,8 @@ export function NavBar() {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 bg-black ${
-        pastHero ? "shadow-[0_4px_12px_var(--gold-shadow)]" : ""
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        pastHero ? "bg-black shadow-[0_4px_12px_var(--gold-shadow)]" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
