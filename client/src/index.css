@@ -14,18 +14,22 @@
     @apply font-eb-garamond antialiased bg-black text-foreground;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-cinzel-decorative;
   }
 }
 
 @layer utilities {
   .hero-gradient {
-    background: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.8),
-      rgba(88, 1, 12, 0.6)
-    );
+    background: linear-gradient(to bottom,
+        rgba(0, 0, 0, 0.8) 50%,
+        /* rgba(216, 177, 92, 0.3) 75%, */
+        rgb(81, 70, 47, 0.8) 100%);
   }
 
   .perspective-1000 {
@@ -38,12 +42,22 @@
   }
 
   @keyframes shake {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(-5deg); }
-    75% { transform: rotate(5deg); }
+
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+
+    25% {
+      transform: rotate(-5deg);
+    }
+
+    75% {
+      transform: rotate(5deg);
+    }
   }
 
   .animate-shake {
-    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
   }
 }
