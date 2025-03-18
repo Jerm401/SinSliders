@@ -75,8 +75,6 @@
     scroll-snap-align: center;
   }
 
-  
-
   .hero-gradient {
     background: linear-gradient(to bottom,
         rgba(0, 0, 0, 0.8) 50%,

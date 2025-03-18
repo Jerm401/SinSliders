@@ -54,12 +54,6 @@ export function CardGrid() {
           initial="initial"
           animate="animate"
           exit="exit"
-          style={{ cursor: "grab" }}
-          drag="x"
-          dragConstraints={{ left: -1000, right: 0 }}
-          dragElastic={0.1}
-          dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
-          whileTap={{ cursor: "grabbing" }}
           transition={{
             duration: 0.5,
             type: "spring",
