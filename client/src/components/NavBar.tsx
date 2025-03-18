@@ -7,20 +7,16 @@ export function NavBar() {
   useEffect(() => {
     // Create an observer to watch for the second section
     const observer = new IntersectionObserver((entries) => {
-      // When second section comes into view (or goes out of view)
       entries.forEach(entry => {
-        // We invert the check since we want the navbar to show when 
-        // the second section starts becoming visible
         setPastHero(!entry.isIntersecting);
       });
     }, {
-      // Start transition slightly before reaching the section
-      threshold: 0,
-      rootMargin: "-100px 0px 0px 0px"
+      threshold: 0.1,
+      rootMargin: "-64px 0px 0px 0px"
     });
 
-    // Find the second section element
-    const secondSection = document.querySelector('.second-section');
+    // Find the hero section element
+    const heroSection = document.querySelector('.hero-section');
     if (secondSection) {
       observer.observe(secondSection);
     }
