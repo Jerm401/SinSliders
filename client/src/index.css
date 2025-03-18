@@ -11,7 +11,7 @@
   }
 
   body {
-    @apply font-eb-garamond antialiased bg-black text-foreground;
+    @apply font-eb-garamond antialiased bg-black text-foreground text-lg;
   }
 
   h1,
