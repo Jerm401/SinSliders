@@ -22,8 +22,8 @@ export function NavBar() {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        pastHero ? "bg-black shadow-lg" : scrolled ? "bg-black/90" : "bg-transparent"
+      className={`fixed top-0 w-full z-50 transition-all duration-300 bg-black ${
+        pastHero ? "shadow-[0_4px_12px_var(--gold-shadow)]" : ""
       }`}
     >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -31,7 +31,9 @@ export function NavBar() {
           <img
             src="/logo.png"
             alt="The Sin Game"
-            className="h-8 transition-all duration-300"
+            className={`h-8 transition-all duration-300 ${
+              pastHero ? "opacity-100" : "opacity-0"
+            }`}
           />
         </a>
         <div className="flex gap-4">
