@@ -19,7 +19,9 @@ export function CardGrid() {
   const shuffleCards = () => {
     // First flip all cards to back
     const allFlipped = Object.fromEntries(
-      Array(DISPLAY_CARDS).fill(0).map((_, i) => [i, false])
+      Array(DISPLAY_CARDS)
+        .fill(0)
+        .map((_, i) => [i, false]),
     );
     setFlippedCards(allFlipped);
 
@@ -50,7 +52,7 @@ export function CardGrid() {
     <div className="w-full mx-auto">
       <AnimatePresence>
         <motion.div
-          className="flex overflow-x-auto scroll-snap-x gap-6 px-0 pb-6 touch-pan-x md:flex-wrap md:justify-center"
+          className="flex overflow-x-auto scroll-snap-x gap-6 px-0 pb-6 touch-pan-x md:flex-wrap md:justify-center overflow-visible"
           initial="initial"
           animate="animate"
           exit="exit"
@@ -68,7 +70,9 @@ export function CardGrid() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
             >
-              <div className={`scroll-snap-center ${isShuffling ? 'animate-shake' : ''}`}>
+              <div
+                className={`scroll-snap-center ${isShuffling ? "animate-shake" : ""}`}
+              >
                 <SinCard
                   key={`${cardNumber}-${index}`}
                   frontImage={`/sin-card-${cardNumber}.jpg`}
@@ -83,7 +87,7 @@ export function CardGrid() {
 
       <AnimatePresence>
         {Object.values(flippedCards).some(Boolean) && (
-          <motion.div 
+          <motion.div
             className="flex justify-center my-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
