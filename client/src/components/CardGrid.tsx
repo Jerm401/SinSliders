@@ -5,7 +5,7 @@ import { Shuffle } from "lucide-react";
 
 // Total number of sin cards available
 const TOTAL_CARDS = 19;
-const DISPLAY_CARDS = 4;
+const DISPLAY_CARDS = 5;
 
 export function CardGrid() {
   const [selectedCards, setSelectedCards] = useState<number[]>([]);
@@ -37,7 +37,7 @@ export function CardGrid() {
           variant="outline"
           className="text-gold border-gold hover:bg-gold/10 gap-2"
         >
-          <Shuffle className="w-4 h-4" />
+          <Shuffle className="w-5 h-5" />
           Shuffle Cards
         </Button>
       </div>
