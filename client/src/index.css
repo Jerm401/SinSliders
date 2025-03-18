@@ -12,6 +12,7 @@
 
   html {
     scroll-behavior: smooth;
+    scroll-timeline: --page-scroll block;
   }
 
   body {
@@ -22,9 +23,10 @@
   }
 
   main {
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: y proximity;
     overflow-y: auto;
     height: 100vh;
+    scroll-padding: 20px;
   }
 
   section {
