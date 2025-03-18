@@ -43,7 +43,7 @@ export function About() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-20"
+          className="mb-20 overflow-visible"
         >
           <CardGrid />
         </motion.div>
