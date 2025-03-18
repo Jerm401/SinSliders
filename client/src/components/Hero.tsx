@@ -34,7 +34,7 @@ export function Hero() {
 
   return (
     <section 
-      className="relative w-full overflow-hidden flex items-center justify-center"
+      className="hero-section relative w-full overflow-hidden flex items-center justify-center"
       style={{
         backgroundImage: slides[currentSlide],
         backgroundSize: 'cover',

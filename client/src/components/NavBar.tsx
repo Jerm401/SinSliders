@@ -8,9 +8,10 @@ export function NavBar() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const heroHeight = document.querySelector('section')?.clientHeight || window.innerHeight;
+      const heroSection = document.querySelector('.hero-section');
+      const heroHeight = heroSection?.clientHeight || window.innerHeight;
       setScrolled(scrollPosition > 50);
-      setPastHero(scrollPosition >= heroHeight);
+      setPastHero(scrollPosition >= heroHeight - 100);
     };
     
     // Run on mount and scroll
