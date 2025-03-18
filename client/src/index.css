@@ -16,8 +16,14 @@
 
   body {
     @apply font-eb-garamond antialiased bg-black text-foreground text-lg;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  main {
     scroll-snap-type: y mandatory;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 100vh;
   }
 
@@ -25,7 +31,10 @@
     scroll-snap-align: start;
     scroll-snap-stop: always;
     min-height: 100vh;
-    max-height: max-content;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   h1,
