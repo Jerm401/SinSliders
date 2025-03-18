@@ -2,31 +2,36 @@ import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 
 export function NavBar() {
-  const [scrolled, setScrolled] = useState(false);
   const [pastHero, setPastHero] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const heroSection = document.querySelector('.hero-section');
-      const heroHeight = heroSection?.clientHeight || 0;
+    // Create an observer to watch for the second section
+    const observer = new IntersectionObserver((entries) => {
+      // When second section comes into view (or goes out of view)
+      entries.forEach(entry => {
+        // We invert the check since we want the navbar to show when 
+        // the second section starts becoming visible
+        setPastHero(!entry.isIntersecting);
+      });
+    }, {
+      // Start transition slightly before reaching the section
+      threshold: 0,
+      rootMargin: "-100px 0px 0px 0px"
+    });
 
-      // Update pastHero when we've scrolled past the hero section
-      setPastHero(scrollPosition >= heroHeight);
-      // Keep scrolled state for potential future use
-      setScrolled(scrollPosition > 50);
-    };
+    // Find the second section element
+    const secondSection = document.querySelector('.second-section');
+    if (secondSection) {
+      observer.observe(secondSection);
+    }
 
-    // Run on mount and scroll
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => observer.disconnect();
   }, []);
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        pastHero ? "bg-black/95 shadow-lg" : "bg-transparent"
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+        pastHero ? "bg-black shadow-[0_4px_12px_rgba(0,0,0,0.5)]" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -34,8 +39,8 @@ export function NavBar() {
           <img
             src="/logo.png"
             alt="The Sin Game"
-            className={`h-8 transition-opacity duration-300 ${
-              pastHero ? "opacity-100" : "opacity-0"
+            className={`h-8 transform transition-all duration-500 ${
+              pastHero ? "opacity-100 scale-100" : "opacity-0 scale-95"
             }`}
           />
         </a>
