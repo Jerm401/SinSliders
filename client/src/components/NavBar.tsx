@@ -9,11 +9,14 @@ export function NavBar() {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const heroSection = document.querySelector('.hero-section');
-      const heroHeight = heroSection?.clientHeight || window.innerHeight;
+      const heroHeight = heroSection?.clientHeight || 0;
+
+      // Update pastHero when we've scrolled past the hero section
+      setPastHero(scrollPosition >= heroHeight);
+      // Keep scrolled state for potential future use
       setScrolled(scrollPosition > 50);
-      setPastHero(scrollPosition >= heroHeight - 100);
     };
-    
+
     // Run on mount and scroll
     handleScroll();
     window.addEventListener("scroll", handleScroll);
@@ -23,7 +26,7 @@ export function NavBar() {
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        pastHero ? "bg-black shadow-[0_4px_12px_var(--gold-shadow)]" : "bg-transparent"
+        pastHero ? "bg-black/95 shadow-lg" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -31,7 +34,7 @@ export function NavBar() {
           <img
             src="/logo.png"
             alt="The Sin Game"
-            className={`h-8 transition-all duration-300 ${
+            className={`h-8 transition-opacity duration-300 ${
               pastHero ? "opacity-100" : "opacity-0"
             }`}
           />
