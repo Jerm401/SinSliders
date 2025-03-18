@@ -30,9 +30,7 @@ export function NavBar() {
           <img
             src="/logo.png"
             alt="The Sin Game"
-            className={`h-8 transition-all duration-300 ${
-              pastHero ? "opacity-100 scale-100" : "opacity-0 scale-95"
-            }`}
+            className="h-8 transition-all duration-300"
           />
         </a>
         <div className="flex gap-4">
