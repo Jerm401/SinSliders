@@ -17,14 +17,22 @@ export function CardGrid() {
   const [isShuffling, setIsShuffling] = useState(false);
 
   const shuffleCards = () => {
-    setIsShuffling(true);
-    const allCards = Array.from({ length: TOTAL_CARDS }, (_, i) => i + 1);
-    const shuffled = allCards
-      .sort(() => Math.random() - 0.5)
-      .slice(0, DISPLAY_CARDS);
-    setSelectedCards(shuffled);
-    setFlippedCards({});
-    setTimeout(() => setIsShuffling(false), 500);
+    // First flip all cards to back
+    const allFlipped = Object.fromEntries(
+      Array(DISPLAY_CARDS).fill(0).map((_, i) => [i, false])
+    );
+    setFlippedCards(allFlipped);
+
+    // After cards are flipped, perform shuffle
+    setTimeout(() => {
+      setIsShuffling(true);
+      const allCards = Array.from({ length: TOTAL_CARDS }, (_, i) => i + 1);
+      const shuffled = allCards
+        .sort(() => Math.random() - 0.5)
+        .slice(0, DISPLAY_CARDS);
+      setSelectedCards(shuffled);
+      setTimeout(() => setIsShuffling(false), 500);
+    }, 600); // Wait for flip animation to complete
   };
 
   const handleCardClick = (index: number) => {
