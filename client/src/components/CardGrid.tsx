@@ -57,7 +57,7 @@ export function CardGrid() {
         </motion.div>
       </AnimatePresence>
 
-      <div className="flex justify-center mb-6">
+      <div className="flex justify-center my-8">
         <Button
           onClick={shuffleCards}
           variant="outline"
