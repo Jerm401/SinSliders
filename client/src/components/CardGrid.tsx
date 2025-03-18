@@ -47,10 +47,10 @@ export function CardGrid() {
   }, []);
 
   return (
-    <div className="w-full mx-auto px-4">
+    <div className="w-full mx-auto">
       <AnimatePresence>
         <motion.div
-          className="flex overflow-x-auto scroll-snap-x gap-6 px-4 pb-6 -mx-4 touch-pan-x md:mx-0 md:px-6 md:flex-wrap md:justify-center"
+          className="flex overflow-x-auto scroll-snap-x gap-6 px-0 pb-6 touch-pan-x md:flex-wrap md:justify-center"
           initial="initial"
           animate="animate"
           exit="exit"
