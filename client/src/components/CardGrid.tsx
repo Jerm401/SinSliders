@@ -30,7 +30,7 @@ export function CardGrid() {
   }, []);
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full max-w-6xl mx-auto px-4">
       <div className="flex justify-center mb-6">
         <Button 
           onClick={shuffleCards}

@@ -11,7 +11,7 @@ interface SinCardProps {
 export function SinCard({ frontImage, onClick, isFlipped }: SinCardProps) {
   return (
     <div 
-      className="relative w-[240px] h-[336px] perspective-1000 cursor-pointer" 
+      className="relative w-[240px] h-[336px] perspective-1000 cursor-pointer transform transition-transform duration-300 hover:scale-110" 
       onClick={onClick}
     >
       <motion.div
@@ -45,3 +45,14 @@ export function SinCard({ frontImage, onClick, isFlipped }: SinCardProps) {
     </div>
   );
 }
+
+//Suggestion for CardGrid component modification (assuming it exists):
+//To increase the width of the section containing the cards, modify the CardGrid component like so:
+
+// function CardGrid({ children }: { children: React.ReactNode }) {
+//   return (
+//     <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-[80vw]"> {/* Increased width here */}
+//       {children}
+//     </section>
+//   );
+// }
