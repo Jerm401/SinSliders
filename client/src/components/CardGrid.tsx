@@ -42,7 +42,7 @@ export function CardGrid() {
         </Button>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 justify-items-center">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 justify-items-center px-6">
         {selectedCards.map((cardNumber, index) => (
           <SinCard
             key={`${cardNumber}-${index}`}
