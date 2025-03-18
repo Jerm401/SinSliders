@@ -45,14 +45,3 @@ export function SinCard({ frontImage, onClick, isFlipped }: SinCardProps) {
     </div>
   );
 }
-
-//Suggestion for CardGrid component modification (assuming it exists):
-//To increase the width of the section containing the cards, modify the CardGrid component like so:
-
-// function CardGrid({ children }: { children: React.ReactNode }) {
-//   return (
-//     <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-[80vw]"> {/* Increased width here */}
-//       {children}
-//     </section>
-//   );
-// }

@@ -31,17 +31,7 @@ export function CardGrid() {
 
   return (
     <div className="w-full mx-auto px-4">
-      <div className="flex justify-center mb-6">
-        <Button 
-          onClick={shuffleCards}
-          variant="outline"
-          className="text-gold border-gold hover:bg-gold/10 gap-2"
-        >
-          <Shuffle className="w-5 h-5" />
-          Shuffle Cards
-        </Button>
-      </div>
-      
+    
       <div className="flex flex-wrap gap-6 justify-center px-6">
         {selectedCards.map((cardNumber, index) => (
           <SinCard
@@ -51,6 +41,17 @@ export function CardGrid() {
             onClick={() => handleCardClick(index)}
           />
         ))}
+      </div>
+      
+      <div className="flex justify-center mb-6">
+        <Button 
+          onClick={shuffleCards}
+          variant="outline"
+          className="text-gold border-gold hover:bg-gold/10 gap-2"
+        >
+          <Shuffle className="w-5 h-5" />
+          Shuffle Cards
+        </Button>
       </div>
     </div>
   );

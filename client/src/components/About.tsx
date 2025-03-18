@@ -45,9 +45,6 @@ export function About() {
           viewport={{ once: true }}
           className="mb-20"
         >
-          <h3 className="text-2xl font-bold text-gold mb-8 text-center">
-            Preview Some Sin Cards
-          </h3>
           <CardGrid />
         </motion.div>
       </div>
