@@ -1,3 +1,4 @@
+
 import { useState, useCallback } from "react";
 import { 
   DndContext, 
@@ -19,6 +20,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { GameCard } from "./GameCard";
 import { Card, GameStage, GameState, gameStageLabels } from "@shared/schema";
+import { GripHorizontal } from "lucide-react";
 
 const INITIAL_CARDS: Card[] = [
   {
@@ -70,14 +72,23 @@ function SortableCard(props: Card & { index: number }) {
   return (
     <div
       ref={setNodeRef}
-      {...attributes}
-      {...listeners}
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
       }}
     >
-      <GameCard {...props} />
+      <GameCard
+        {...props}
+        dragHandle={
+          <div
+            {...attributes}
+            {...listeners}
+            className="absolute top-2 left-2 w-8 h-8 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center cursor-grab active:cursor-grabbing hover:bg-white/20 transition-colors"
+          >
+            <GripHorizontal className="w-4 h-4 text-white/80" />
+          </div>
+        }
+      />
     </div>
   );
 }
@@ -174,18 +185,18 @@ export function GameDemo() {
   }, []);
 
   return (
-    <div className="w-full max-w-4xl mx-auto py-12">
+    <div className="w-full mx-auto py-12 px-4 bg-black/30 backdrop-blur-sm rounded-lg shadow-xl">
       <div className="text-center mb-8">
-        <h3 className="text-2xl font-bold text-gold mb-2">
+        <h3 className="text-2xl font-bold text-gold mb-4">
           {gameStageLabels[gameState.stage]}
         </h3>
         <div className="flex gap-4 justify-center">
           {gameState.canShuffle && (
-            <Button onClick={handleShuffle} variant="outline">
+            <Button onClick={handleShuffle} variant="outline" className="hover:bg-white/10">
               Shuffle Cards
             </Button>
           )}
-          <Button onClick={handleNextStage}>
+          <Button onClick={handleNextStage} className="bg-blood hover:bg-blood/80">
             {gameState.stage === GameStage.BLESSING_CURSE ? "Next Round" : "Next Stage"}
           </Button>
         </div>
@@ -201,11 +212,15 @@ export function GameDemo() {
           strategy={horizontalListSortingStrategy}
         >
           <motion.div 
-            className="flex justify-center gap-4"
+            className="flex justify-center gap-4 flex-wrap"
             layout
           >
             {gameState.cards.map((card, index) => (
-              <div key={card.id} onClick={() => handleCardClick(card.id)}>
+              <div 
+                key={card.id} 
+                onClick={() => handleCardClick(card.id)}
+                className="mb-4"
+              >
                 <SortableCard {...card} index={index} />
               </div>
             ))}
