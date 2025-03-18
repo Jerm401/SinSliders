@@ -56,7 +56,7 @@ const INITIAL_CARDS: Card[] = [
     title: "Wrath",
     description: "Anger leads to hate",
     isRevealed: false,
-  },
+  }
 ];
 
 function SortableCard(props: Card & { index: number }) {
@@ -107,7 +107,7 @@ export function GameDemo() {
     })
   );
 
-  const handleDragEnd = useCallback(({ active, over }) => {
+  const handleDragEnd = useCallback(({ active, over }: any) => {
     if (over && active.id !== over.id) {
       setGameState((state) => {
         const oldIndex = state.cards.findIndex((card) => card.id === active.id);
@@ -157,7 +157,7 @@ export function GameDemo() {
       })();
 
       let newCards = [...state.cards];
-      
+
       if (newStage === GameStage.TOKEN_AWARDS) {
         newCards = newCards.map((card, index) => ({
           ...card,
