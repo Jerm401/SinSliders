@@ -8,12 +8,13 @@ export function NavBar() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const heroHeight = window.innerHeight;
+      const heroHeight = document.querySelector('section')?.clientHeight || window.innerHeight;
       setScrolled(scrollPosition > 50);
-      setPastHero(scrollPosition > heroHeight * 0.5);
+      setPastHero(scrollPosition >= heroHeight);
     };
     
-    handleScroll(); // Check initial scroll position
+    // Run on mount and scroll
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -29,8 +30,8 @@ export function NavBar() {
           <img
             src="/logo.png"
             alt="The Sin Game"
-            className={`h-8 transition-opacity duration-300 ${
-              pastHero ? "opacity-100" : "opacity-0"
+            className={`h-8 transition-all duration-300 ${
+              pastHero ? "opacity-100 scale-100" : "opacity-0 scale-95"
             }`}
           />
         </a>
