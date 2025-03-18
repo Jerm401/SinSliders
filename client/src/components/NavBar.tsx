@@ -17,8 +17,8 @@ export function NavBar() {
 
     // Find the hero section element
     const heroSection = document.querySelector('.hero-section');
-    if (secondSection) {
-      observer.observe(secondSection);
+    if (heroSection) {
+      observer.observe(heroSection);
     }
 
     return () => observer.disconnect();
