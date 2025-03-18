@@ -43,7 +43,7 @@ export function GameCard({
           )}
         >
           <img
-            src="/attached_assets/sin-card-back.png"
+            src="/sin-card-back.png"
             alt="Card Back"
             className="w-full h-full object-cover"
           />
