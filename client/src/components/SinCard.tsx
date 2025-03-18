@@ -11,7 +11,8 @@ interface SinCardProps {
 export function SinCard({ frontImage, onClick, isFlipped }: SinCardProps) {
   return (
     <div 
-      className="relative w-[240px] h-[336px] perspective-1000 cursor-pointer transform transition-transform duration-300 hover:scale-110" 
+      className="relative w-[240px] h-[336px] perspective-1000 cursor-pointer transform transition-transform duration-300 hover:scale-110 hover:z-10" 
+      style={{ overflow: 'visible' }}
       onClick={onClick}
     >
       <motion.div
