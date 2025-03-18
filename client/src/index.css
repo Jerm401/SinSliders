@@ -23,10 +23,12 @@
   }
 
   main {
-    scroll-snap-type: y proximity;
+    scroll-snap-type: y mandatory;
+    /* Change to mandatory for stricter snapping */
     overflow-y: auto;
     height: 100vh;
-    scroll-padding: 20px;
+    scroll-padding: 0;
+    /* Remove padding for snapping to occur right at the edges */
     position: relative;
     z-index: 0;
   }
@@ -41,7 +43,9 @@
 
   section {
     scroll-snap-align: start;
+    /* Ensure this is set to start for strong alignment */
     scroll-snap-stop: always;
+    /* Ensure it always stops at a snap point */
     min-height: 100vh;
     height: 100vh;
     display: flex;
