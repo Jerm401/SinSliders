@@ -12,10 +12,10 @@ export function About() {
           viewport={{ once: true }}
           className="max-w-2xl mx-auto mb-20 text-center"
         >
-          <h2 className="text-4xl font-bold text-gold mb-6">
+          <h2 className="text-5xl font-bold text-gold mb-7">
             About The Game
           </h2>
-          <p className="text-lg text-white/90">
+          <p className="text-1xl text-white/90 mt-2">
             Welcome to The Sin Game, a Catholic themed party game of moral judgment, strategic 
             deception, and divine intervention. Players take on the role of 
             sinners navigating the perilous path between Heaven and Hell, striving 
@@ -43,7 +43,7 @@ export function About() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-20 overflow-visible"
+          className="overflow-visible"
         >
           <CardGrid />
         </motion.div>
