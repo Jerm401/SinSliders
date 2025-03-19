@@ -49,7 +49,7 @@ export function CardGrid() {
   }, []);
 
   return (
-    <div className="w-full mx-auto">
+    <div className="w-full mx-auto relative min-h-[400px]">
       <AnimatePresence>
         <motion.div
           className="flex overflow-x-auto scroll-snap-x gap-6 px-0 touch-pan-x md:flex-wrap md:justify-center overflow-visible"
@@ -88,7 +88,7 @@ export function CardGrid() {
       <AnimatePresence>
         {Object.values(flippedCards).some(Boolean) && (
           <motion.div
-            className="flex justify-center my-8"
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 transform"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
