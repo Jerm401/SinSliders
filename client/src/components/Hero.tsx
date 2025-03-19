@@ -4,13 +4,15 @@ import { motion } from "framer-motion";
 const slides = [
   "url('https://images.unsplash.com/photo-1600431521340-491eca880813?auto=format&fit=crop&w=2000')",
   "url('https://images.unsplash.com/photo-1511882150382-421056c89033?auto=format&fit=crop&w=2000')",
-  "url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=2000')"
+  "url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=2000')",
 ];
 
 const slogans = [
-  "What's up Sinners?",
-  "Get ready to sin!",
-  "Let the sins begin!"
+  "A Catholic Party Game for Sinners.",
+  "No trip to the confessional needed.",
+  "An actually funny Catholic themed card game.",
+  "Nothing sacrilegious found here.",
+  "Heaven is on the line, hell is a few sins away."
 ];
 
 export function Hero() {
@@ -24,7 +26,7 @@ export function Hero() {
 
     const sloganInterval = setInterval(() => {
       setCurrentSlogan((prev) => (prev + 1) % slogans.length);
-    }, 3000);
+    }, 4500);
 
     return () => {
       clearInterval(slideInterval);
@@ -33,17 +35,17 @@ export function Hero() {
   }, []);
 
   return (
-    <section 
+    <section
       className="hero-section relative w-full overflow-hidden flex items-center justify-center"
       style={{
         backgroundImage: slides[currentSlide],
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        transition: 'background-image 1s ease-in-out'
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        transition: "background-image 1s ease-in-out",
       }}
     >
       <div className="absolute inset-0 hero-gradient" />
-      
+
       <div className="relative h-full flex flex-col items-center justify-center text-center px-4">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
