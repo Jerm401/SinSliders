@@ -7,10 +7,9 @@ import { drizzle } from "drizzle-orm/neon-serverless";
 import { eq, desc, sql, and, count, lt } from "drizzle-orm";
 import { neon } from "@neondatabase/serverless";
 
-// Initialize the database connection - using async query function for Neon
-const sql_url = process.env.DATABASE_URL!;
-// Use the string connection URL directly to avoid type issues with recent Neon version
-const db = drizzle(neon(sql_url));
+// Initialize the database connection
+// Use direct string URL method to avoid type issues with latest Neon version
+const db = drizzle(neon(process.env.DATABASE_URL!));
 
 // modify the interface with any CRUD methods
 // you might need

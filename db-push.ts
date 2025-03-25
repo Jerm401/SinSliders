@@ -4,8 +4,8 @@ import { sql } from "drizzle-orm";
 import { users, orders } from "./shared/schema";
 
 // Initialize the database connection
-const sql_url = process.env.DATABASE_URL!;
-const db = drizzle(neon(sql_url));
+// Use direct string URL method to avoid type issues with latest Neon version
+const db = drizzle(neon(process.env.DATABASE_URL!));
 
 // Run migrations
 async function runMigrations() {
