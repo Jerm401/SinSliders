@@ -92,11 +92,12 @@ export class DatabaseStorage implements IStorage {
   async countOrdersByDiscountTier(): Promise<{ tier: number, count: number }[]> {
     try {
       // Using raw SQL query to avoid issues with the count function
-      const result = await db.execute(sql`
-        SELECT discount_percentage, COUNT(id) as count 
-        FROM orders 
-        GROUP BY discount_percentage
-      `);
+      const result = await db.select({
+        discount_percentage: orders.discountPercentage,
+        count: count(orders.id)
+      })
+      .from(orders)
+      .groupBy(orders.discountPercentage);
       
       if (!result.rows || result.rows.length === 0) {
         return [];
