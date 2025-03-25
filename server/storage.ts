@@ -9,9 +9,8 @@ import { neon } from "@neondatabase/serverless";
 
 // Initialize the database connection - using async query function for Neon
 const sql_url = process.env.DATABASE_URL!;
-// Connect to database
-const client = neon(sql_url);
-const db = drizzle(client);
+// Use the string connection URL directly to avoid type issues with recent Neon version
+const db = drizzle(neon(sql_url));
 
 // modify the interface with any CRUD methods
 // you might need

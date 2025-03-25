@@ -1,5 +1,6 @@
 import { drizzle } from "drizzle-orm/neon-serverless";
 import { neon } from "@neondatabase/serverless";
+import { sql } from "drizzle-orm";
 import { users, orders } from "./shared/schema";
 
 // Initialize the database connection
