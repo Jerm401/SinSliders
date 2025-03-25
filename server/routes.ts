@@ -1,9 +1,21 @@
-import type { Express, Request, Response } from "express";
+import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { OrderStatus, insertOrderSchema, insertUserSchema } from "@shared/schema";
 import { ZodError } from "zod";
 import { z } from "zod";
+import 'express-session';
+
+// Extend the Express Request type to include session
+declare module 'express-session' {
+  interface SessionData {
+    user?: {
+      id: number;
+      username: string;
+      isAdmin: boolean;
+    };
+  }
+}
 
 // Authentication middleware
 const requireAuth = (req: Request, res: Response, next: Function) => {
@@ -136,7 +148,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Calculate subtotal and total
       const basePrice = 39.99; // Base price of the game
-      const subtotal = orderData.quantity * basePrice;
+      const quantity = orderData.quantity || 1; // Default to 1 if not provided
+      const subtotal = quantity * basePrice;
       const discount = subtotal * (percentage / 100);
       const total = subtotal - discount;
       
