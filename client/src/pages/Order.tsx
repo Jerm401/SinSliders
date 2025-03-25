@@ -52,7 +52,7 @@ export default function Order() {
         },
         body: JSON.stringify({
           ...formData,
-          discountPercentage: pricing.discountPercentage,
+          discountPercentage: tierInfo?.percentage || 0,
           subtotal: parseFloat(pricing.subtotal),
           total: parseFloat(pricing.total)
         }),
