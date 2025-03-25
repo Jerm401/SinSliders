@@ -126,23 +126,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Order routes
   
-  // Get current discount tier information
-  app.get('/api/orders/discount-tier', async (req: Request, res: Response) => {
-    try {
-      const tierInfo = await storage.getCurrentDiscountTier();
-      res.json(tierInfo);
-    } catch (error) {
-      console.error("Get discount tier error:", error);
-      res.status(500).json({ error: "Failed to get discount tier information" });
-    }
-  });
-
   // Create a new order
   app.post('/api/orders', async (req: Request, res: Response) => {
     try {
-      // Get current discount tier
-      const { percentage } = await storage.getCurrentDiscountTier();
-      
       // Validate order data
       const orderData = insertOrderSchema.parse(req.body);
       
@@ -150,8 +136,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const basePrice = 39.99; // Base price of the game
       const quantity = orderData.quantity || 1; // Default to 1 if not provided
       const subtotal = quantity * basePrice;
-      const discount = subtotal * (percentage / 100);
-      const total = subtotal - discount;
+      const total = subtotal;
       
       // Create order with the current discount percentage
       const order = await storage.createOrder({

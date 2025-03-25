@@ -28,13 +28,6 @@ export const OrderStatus = {
 
 export type OrderStatusType = typeof OrderStatus[keyof typeof OrderStatus];
 
-// Pre-order discount tiers
-export const DISCOUNT_TIERS = [
-  { limit: 15, percentage: 50 },
-  { limit: 50, percentage: 30 },
-  { limit: Infinity, percentage: 25 }
-];
-
 // Orders table
 export const orders = pgTable("orders", {
   id: serial("id").primaryKey(),
@@ -46,7 +39,6 @@ export const orders = pgTable("orders", {
   customerZip: text("customer_zip").notNull(),
   customerCountry: text("customer_country").notNull(),
   quantity: integer("quantity").notNull().default(1),
-  discountPercentage: integer("discount_percentage").notNull(),
   subtotal: doublePrecision("subtotal").notNull(),
   total: doublePrecision("total").notNull(),
   status: text("status", { enum: Object.values(OrderStatus) }).notNull().default(OrderStatus.PENDING),
