@@ -36,7 +36,9 @@ export function NavBar() {
             src="/logo.png"
             alt="The Sin Game"
             className={`h-8 transition-all duration-500 ${
-              pastHero ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
+              window.location.pathname === "/" && !pastHero 
+                ? "opacity-0 -translate-y-4" 
+                : "opacity-100 translate-y-0"
             }`}
           />
         </a>
