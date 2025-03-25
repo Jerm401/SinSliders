@@ -1,7 +1,7 @@
 import { 
   users, type User, type InsertUser,
   orders, type Order, type InsertOrder, type OrderStatusType,
-  DISCOUNT_TIERS
+  DISCOUNT_TIERS, OrderStatus
 } from "@shared/schema";
 import { drizzle } from "drizzle-orm/neon-serverless";
 import { eq, desc, sql, and, count, lt } from "drizzle-orm";
@@ -54,7 +54,7 @@ export class DatabaseStorage implements IStorage {
     const now = new Date();
     const results = await db.insert(orders).values({
       ...order,
-      status: OrderStatus.PENDING,
+      status: OrderStatus.PENDING as string,
       createdAt: now,
       updatedAt: now
     }).returning();
