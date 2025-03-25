@@ -4,7 +4,7 @@ import { sql } from "drizzle-orm";
 import { users, orders } from "./shared/schema";
 
 // Initialize the database connection
-// Use direct string URL method to avoid type issues with latest Neon version
+// Using the latest version of @neondatabase/serverless
 const db = drizzle(neon(process.env.DATABASE_URL!));
 
 // Run migrations
