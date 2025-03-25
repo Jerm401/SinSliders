@@ -4,9 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { fadeInUp, staggerChildren } from '@/lib/animations';
 import { useQuery } from '@tanstack/react-query';
-import { apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
-import { Link } from 'wouter';
 
 // Define the discount tiers (for reference only)
 const DISCOUNT_TIERS = [
@@ -71,11 +69,11 @@ export function PreOrder() {
           className="text-center max-w-4xl mx-auto mb-12"
         >
           <h2 className="text-5xl font-bold text-[var(--gold)] mb-4">
-            Pre-Order The Sin Game
+            Get The Sin Game
           </h2>
           <p className="text-xl opacity-90 mb-8">
-            Be among the first to own The Sin Game at exclusive pre-order prices. 
-            Early supporters get the best deals!
+            Be among the first to own The Sin Game at exclusive prices. 
+            Click below to check out our store!
           </p>
         </motion.div>
 
@@ -101,22 +99,16 @@ export function PreOrder() {
                     {tierInfo.percentage}% OFF
                   </h3>
                   <p className="text-lg opacity-80">
-                    Current Pre-Order Discount
+                    Current Discount
                   </p>
                 </div>
 
                 <div className="text-right">
                   <h4 className="text-2xl font-bold">
-                    {tierInfo.remaining === Infinity ? (
-                      "Unlimited"
-                    ) : (
-                      <>
-                        {tierInfo.remaining} {tierInfo.remaining === 1 ? 'Copy' : 'Copies'}
-                      </>
-                    )}
+                    Limited Time Offer
                   </h4>
                   <p className="text-lg opacity-80">
-                    Remaining at this price
+                    Don't miss out!
                   </p>
                 </div>
               </div>
@@ -125,15 +117,9 @@ export function PreOrder() {
                 <Progress value={progressPercentage()} className="h-3 bg-black/30" />
               </div>
 
-              {tierInfo.nextTier ? (
-                <p className="text-center text-sm opacity-90 mb-2">
-                  Next tier: <span className="text-[var(--gold)]">{tierInfo.nextTier.percentage}% off</span> after current allocation is sold out
-                </p>
-              ) : (
-                <p className="text-center text-sm opacity-90 mb-2">
-                  Final pre-order discount: <span className="text-[var(--gold)]">{tierInfo.percentage}% off</span>
-                </p>
-              )}
+              <p className="text-center text-sm opacity-90 mb-2">
+                Current discount: <span className="text-[var(--gold)]">{tierInfo.percentage}% off</span>
+              </p>
             </>
           )}
         </motion.div>
@@ -147,7 +133,7 @@ export function PreOrder() {
               size="lg"
               onClick={() => window.location.href = '/order'}
             >
-              Pre-Order Now
+              View Store
             </Button>
         </motion.div>
       </motion.div>
