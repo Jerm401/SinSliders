@@ -142,14 +142,13 @@ export function PreOrder() {
           variants={fadeInUp} 
           className="text-center"
         >
-          <Link href="/order">
-            <Button 
+          <Button 
               className="bg-[var(--gold)] hover:bg-[var(--gold)]/80 text-black font-bold text-lg px-8 py-6"
               size="lg"
+              onClick={() => window.location.href = '/order'}
             >
               Pre-Order Now
             </Button>
-          </Link>
         </motion.div>
       </motion.div>
     </section>
