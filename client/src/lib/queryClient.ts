@@ -7,20 +7,49 @@ async function throwIfResNotOk(res: Response) {
   }
 }
 
-export async function apiRequest(
+// For GET requests with a single URL parameter
+export async function apiRequest<T = unknown>(url: string): Promise<T>;
+// For other methods with method, URL, and optional data
+export async function apiRequest<T = unknown>(
   method: string,
   url: string,
   data?: unknown | undefined,
-): Promise<Response> {
+): Promise<T>;
+
+// Implementation that handles both overloads
+export async function apiRequest<T = unknown>(
+  methodOrUrl: string,
+  urlOrData?: string | unknown,
+  data?: unknown
+): Promise<T> {
+  let method: string;
+  let url: string;
+  let requestData: unknown | undefined;
+
+  // Handle overloads
+  if (urlOrData === undefined) {
+    // First overload: only URL provided
+    method = 'GET';
+    url = methodOrUrl;
+    requestData = undefined;
+  } else if (typeof urlOrData === 'string') {
+    // Second overload: method, URL, and optional data provided
+    method = methodOrUrl;
+    url = urlOrData;
+    requestData = data;
+  } else {
+    throw new Error('Invalid parameters for apiRequest');
+  }
+
   const res = await fetch(url, {
     method,
-    headers: data ? { "Content-Type": "application/json" } : {},
-    body: data ? JSON.stringify(data) : undefined,
+    headers: requestData ? { "Content-Type": "application/json" } : {},
+    body: requestData ? JSON.stringify(requestData) : undefined,
     credentials: "include",
   });
 
   await throwIfResNotOk(res);
-  return res;
+  return res.json();
 }
 
 type UnauthorizedBehavior = "returnNull" | "throw";

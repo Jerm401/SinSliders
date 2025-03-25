@@ -1,72 +1,61 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { fadeInUp, staggerChildren } from '@/lib/animations';
+import { useQuery } from '@tanstack/react-query';
+import { apiRequest } from '@/lib/queryClient';
+import { useToast } from '@/hooks/use-toast';
+import { Link } from 'wouter';
 
-// Define the discount tiers
+// Define the discount tiers (for reference only)
 const DISCOUNT_TIERS = [
-  { limit: 15, percentage: 50, remainingInitial: 15 },
-  { limit: 50, percentage: 30, remainingInitial: 50 },
-  { limit: Infinity, percentage: 25, remainingInitial: 0 }
+  { limit: 15, percentage: 50 },
+  { limit: 50, percentage: 30 },
+  { limit: Infinity, percentage: 25 }
 ];
 
-export function PreOrder() {
-  // State to track remaining games at each discount tier
-  const [tierRemainingCounts, setTierRemainingCounts] = useState(
-    DISCOUNT_TIERS.map(tier => tier.remainingInitial)
-  );
-  
-  // Current active tier (starts at 0, the first tier)
-  const [currentTierIndex, setCurrentTierIndex] = useState(0);
+// Define the response type for our API
+interface DiscountTierResponse {
+  percentage: number;
+  remaining: number;
+  nextTier: { percentage: number } | null;
+}
 
-  // In a real app, we would fetch this data from the backend
-  useEffect(() => {
-    // For demo purposes, we'll simulate the countdown of the first tier
-    // In a real application, this would be replaced with actual API data
-    const interval = setInterval(() => {
-      setTierRemainingCounts(prev => {
-        // If the current tier is empty, we don't need to update
-        if (prev[currentTierIndex] <= 0) {
-          clearInterval(interval);
-          return prev;
-        }
-        
-        // Update the count for the current tier
-        const newCounts = [...prev];
-        newCounts[currentTierIndex] = Math.max(0, newCounts[currentTierIndex] - 1);
-        
-        // If we've exhausted current tier, move to next tier
-        if (newCounts[currentTierIndex] === 0 && currentTierIndex < DISCOUNT_TIERS.length - 1) {
-          setCurrentTierIndex(currentTierIndex + 1);
-        }
-        
-        return newCounts;
+export function PreOrder() {
+  const { toast } = useToast();
+  
+  // Fetch current discount tier from API
+  const { data: tierInfo, isLoading, error } = useQuery<DiscountTierResponse>({
+    queryKey: ['/api/orders/discount-tier'],
+    refetchInterval: 30000, // Refresh every 30 seconds to see updates
+  });
+
+  // Show error toast if the fetch fails
+  React.useEffect(() => {
+    if (error) {
+      toast({
+        title: "Error fetching discount information",
+        description: "Please try again later",
+        variant: "destructive"
       });
-    }, 10000); // Update every 10 seconds for demo
-    
-    return () => clearInterval(interval);
-  }, [currentTierIndex]);
+    }
+  }, [error, toast]);
 
   // Calculate progress percentage for the current tier
   const progressPercentage = () => {
-    const currentTier = DISCOUNT_TIERS[currentTierIndex];
-    const remaining = tierRemainingCounts[currentTierIndex];
-    const total = currentTier.remainingInitial;
+    if (!tierInfo) return 0;
     
-    if (total === 0) return 100; // For the last tier which has no limit
+    // Find the current tier's limit based on percentage
+    const currentTierData = DISCOUNT_TIERS.find(t => t.percentage === tierInfo.percentage);
+    if (!currentTierData) return 0;
+    
+    const total = currentTierData.limit;
+    const remaining = tierInfo.remaining;
+    
+    if (total === Infinity) return 100; // For the last tier which has no limit
     return 100 - (remaining / total * 100);
   };
-
-  // Get information about the next tier (if any)
-  const getNextTierInfo = () => {
-    if (currentTierIndex >= DISCOUNT_TIERS.length - 1) {
-      return null; // No next tier
-    }
-    return DISCOUNT_TIERS[currentTierIndex + 1];
-  };
-
-  const nextTier = getNextTierInfo();
 
   return (
     <section className="bg-[var(--blood)] text-white py-20">
@@ -94,40 +83,58 @@ export function PreOrder() {
           variants={fadeInUp}
           className="max-w-2xl mx-auto bg-black/20 p-8 rounded-lg border border-[var(--gold)]/30 backdrop-blur-sm mb-10"
         >
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-6">
-            <div>
-              <h3 className="text-3xl font-bold text-[var(--gold)]">
-                {DISCOUNT_TIERS[currentTierIndex].percentage}% OFF
-              </h3>
-              <p className="text-lg opacity-80">
-                Current Pre-Order Discount
-              </p>
+          {isLoading ? (
+            <div className="flex flex-col items-center justify-center py-8">
+              <div className="w-12 h-12 border-4 border-[var(--gold)] border-t-transparent rounded-full animate-spin"></div>
+              <p className="mt-4 text-lg">Loading discount information...</p>
             </div>
-
-            <div className="text-right">
-              <h4 className="text-2xl font-bold">
-                {tierRemainingCounts[currentTierIndex]} {tierRemainingCounts[currentTierIndex] === 1 ? 'Copy' : 'Copies'}
-              </h4>
-              <p className="text-lg opacity-80">
-                Remaining at this price
-              </p>
+          ) : !tierInfo ? (
+            <div className="text-center py-8">
+              <p className="text-xl">Unable to load discount information</p>
+              <p className="mt-2 opacity-80">Please try again later</p>
             </div>
-          </div>
+          ) : (
+            <>
+              <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-6">
+                <div>
+                  <h3 className="text-3xl font-bold text-[var(--gold)]">
+                    {tierInfo.percentage}% OFF
+                  </h3>
+                  <p className="text-lg opacity-80">
+                    Current Pre-Order Discount
+                  </p>
+                </div>
 
-          <div className="mb-6">
-            <Progress value={progressPercentage()} className="h-3 bg-black/30" />
-          </div>
+                <div className="text-right">
+                  <h4 className="text-2xl font-bold">
+                    {tierInfo.remaining === Infinity ? (
+                      "Unlimited"
+                    ) : (
+                      <>
+                        {tierInfo.remaining} {tierInfo.remaining === 1 ? 'Copy' : 'Copies'}
+                      </>
+                    )}
+                  </h4>
+                  <p className="text-lg opacity-80">
+                    Remaining at this price
+                  </p>
+                </div>
+              </div>
 
-          {nextTier && (
-            <p className="text-center text-sm opacity-90 mb-2">
-              Next tier: <span className="text-[var(--gold)]">{nextTier.percentage}% off</span> for the next {nextTier.limit} copies
-            </p>
-          )}
-          
-          {!nextTier && (
-            <p className="text-center text-sm opacity-90 mb-2">
-              Final pre-order discount: <span className="text-[var(--gold)]">{DISCOUNT_TIERS[currentTierIndex].percentage}% off</span>
-            </p>
+              <div className="mb-6">
+                <Progress value={progressPercentage()} className="h-3 bg-black/30" />
+              </div>
+
+              {tierInfo.nextTier ? (
+                <p className="text-center text-sm opacity-90 mb-2">
+                  Next tier: <span className="text-[var(--gold)]">{tierInfo.nextTier.percentage}% off</span> after current allocation is sold out
+                </p>
+              ) : (
+                <p className="text-center text-sm opacity-90 mb-2">
+                  Final pre-order discount: <span className="text-[var(--gold)]">{tierInfo.percentage}% off</span>
+                </p>
+              )}
+            </>
           )}
         </motion.div>
 
@@ -135,13 +142,14 @@ export function PreOrder() {
           variants={fadeInUp} 
           className="text-center"
         >
-          <Button 
-            className="bg-[var(--gold)] hover:bg-[var(--gold)]/80 text-black font-bold text-lg px-8 py-6"
-            size="lg"
-            onClick={() => window.location.href = '/order'}
-          >
-            Pre-Order Now
-          </Button>
+          <Link href="/order">
+            <Button 
+              className="bg-[var(--gold)] hover:bg-[var(--gold)]/80 text-black font-bold text-lg px-8 py-6"
+              size="lg"
+            >
+              Pre-Order Now
+            </Button>
+          </Link>
         </motion.div>
       </motion.div>
     </section>
