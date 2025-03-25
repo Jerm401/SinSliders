@@ -54,6 +54,7 @@ export class DatabaseStorage implements IStorage {
     const now = new Date();
     const results = await db.insert(orders).values({
       ...order,
+      status: OrderStatus.PENDING,
       createdAt: now,
       updatedAt: now
     }).returning();

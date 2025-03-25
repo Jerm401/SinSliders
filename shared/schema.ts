@@ -49,7 +49,7 @@ export const orders = pgTable("orders", {
   discountPercentage: integer("discount_percentage").notNull(),
   subtotal: doublePrecision("subtotal").notNull(),
   total: doublePrecision("total").notNull(),
-  status: text("status").notNull().$type<OrderStatusType>().default(OrderStatus.PENDING),
+  status: text("status", { enum: Object.values(OrderStatus) }).notNull().default(OrderStatus.PENDING),
   notes: text("notes"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
