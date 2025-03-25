@@ -5,13 +5,14 @@ import {
 } from "@shared/schema";
 import { drizzle } from "drizzle-orm/neon-serverless";
 import { eq, desc, sql, and, count, lt } from "drizzle-orm";
-import { neon } from "@neondatabase/serverless";
+import { neon, NeonQueryFunction } from "@neondatabase/serverless";
 
 // Initialize the database connection with proper typing
 // Using the latest version of @neondatabase/serverless
 const dbUrl = process.env.DATABASE_URL!;
 const client = neon(dbUrl);
-const db = drizzle(client);
+// Fix the typing issue with drizzle and neon
+const db = drizzle(client as any);
 
 // modify the interface with any CRUD methods
 // you might need
@@ -91,7 +92,7 @@ export class DatabaseStorage implements IStorage {
   
   async countOrdersByDiscountTier(): Promise<{ tier: number, count: number }[]> {
     try {
-      // Using raw SQL query to avoid issues with the count function
+      // Fix the query to return data in the correct format
       const result = await db.select({
         discount_percentage: orders.discountPercentage,
         count: count(orders.id)
@@ -99,11 +100,13 @@ export class DatabaseStorage implements IStorage {
       .from(orders)
       .groupBy(orders.discountPercentage);
       
-      if (!result.rows || result.rows.length === 0) {
+      // Handle empty results
+      if (!result || result.length === 0) {
         return [];
       }
       
-      return result.rows.map(row => ({
+      // Map the results to the expected format with proper typing
+      return result.map((row: { discount_percentage: number; count: number }) => ({
         tier: Number(row.discount_percentage),
         count: Number(row.count)
       }));
