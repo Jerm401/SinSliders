@@ -90,18 +90,27 @@ export class DatabaseStorage implements IStorage {
   }
   
   async countOrdersByDiscountTier(): Promise<{ tier: number, count: number }[]> {
-    const results = await db
-      .select({ 
-        discountPercentage: orders.discountPercentage,
-        count: count(orders.id)
-      })
-      .from(orders)
-      .groupBy(orders.discountPercentage);
-    
-    return results.map(r => ({ 
-      tier: r.discountPercentage,
-      count: Number(r.count)
-    }));
+    try {
+      // Using raw SQL query to avoid issues with the count function
+      const result = await db.execute(sql`
+        SELECT discount_percentage, COUNT(id) as count 
+        FROM orders 
+        GROUP BY discount_percentage
+      `);
+      
+      if (!result.rows || result.rows.length === 0) {
+        return [];
+      }
+      
+      return result.rows.map(row => ({
+        tier: Number(row.discount_percentage),
+        count: Number(row.count)
+      }));
+    } catch (error) {
+      console.error("Error counting orders by discount tier:", error);
+      // Return empty array if query fails
+      return [];
+    }
   }
   
   async getCurrentDiscountTier(): Promise<{ percentage: number, remaining: number, nextTier: { percentage: number } | null }> {
