@@ -36,9 +36,7 @@ export function NavBar() {
             src="/logo.png"
             alt="The Sin Game"
             className={`h-8 transition-all duration-500 ${
-              window.location.pathname === "/" && !pastHero 
-                ? "opacity-0 -translate-y-4" 
-                : "opacity-100 translate-y-0"
+              pastHero ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
             }`}
           />
         </a>
@@ -50,11 +48,8 @@ export function NavBar() {
           >
             How to Play
           </Button>
-          <Button 
-            className="bg-[var(--gold)] hover:bg-[var(--gold)]/80 text-white"
-            onClick={() => window.location.href = '/order'}
-          >
-            Pre-Order Now
+          <Button className="bg-[var(--gold)] hover:bg-[var(--gold)]/80 text-white">
+            Buy Now
           </Button>
         </div>
       </div>
