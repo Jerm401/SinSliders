@@ -50,12 +50,17 @@ export default function Order() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          discountPercentage: pricing.discountPercentage,
+          subtotal: parseFloat(pricing.subtotal),
+          total: parseFloat(pricing.total)
+        }),
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error ? JSON.stringify(errorData.error) : "Failed to create order");
+        const error = await response.json();
+        throw new Error(error.message || "Failed to create order");
       }
 
       setOrderComplete(true);
@@ -80,11 +85,11 @@ export default function Order() {
     const basePrice = 39.99;
     const discountPercentage = tierInfo?.percentage || 0;
     const quantity = formData.quantity;
-    
+
     const subtotal = basePrice * quantity;
     const discount = subtotal * (discountPercentage / 100);
     const total = subtotal - discount;
-    
+
     return {
       basePrice,
       subtotal: subtotal.toFixed(2),
@@ -93,7 +98,7 @@ export default function Order() {
       discountPercentage
     };
   };
-  
+
   const pricing = calculatePricing();
 
   if (orderComplete) {
@@ -123,14 +128,14 @@ export default function Order() {
         <Card className="max-w-md mx-auto">
           <CardContent className="pt-6">
             <h1 className="text-2xl font-bold mb-6">Pre-Order The Sin Game</h1>
-            
+
             {tierInfo && (
               <div className="mb-4 p-3 bg-black/20 rounded-md border border-[var(--gold)]/30">
                 <p className="font-bold text-[var(--gold)]">Current Discount: {tierInfo.percentage}% OFF</p>
                 <p className="text-sm opacity-80">Only {tierInfo.remaining} orders left at this discount tier!</p>
               </div>
             )}
-            
+
             <form onSubmit={handleSubmit}>
               <div className="space-y-4">
                 <div>
@@ -146,7 +151,7 @@ export default function Order() {
                     required
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium mb-1">
                     Full Name
@@ -159,7 +164,7 @@ export default function Order() {
                     required
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium mb-1">
                     Email
@@ -172,7 +177,7 @@ export default function Order() {
                     required
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium mb-1">
                     Address
@@ -185,7 +190,7 @@ export default function Order() {
                     required
                   />
                 </div>
-                
+
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="block text-sm font-medium mb-1">
@@ -212,7 +217,7 @@ export default function Order() {
                     />
                   </div>
                 </div>
-                
+
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="block text-sm font-medium mb-1">
@@ -239,7 +244,7 @@ export default function Order() {
                     />
                   </div>
                 </div>
-                
+
                 <div className="mt-6 p-4 border border-gray-200 rounded-md bg-black/20">
                   <h3 className="font-medium mb-2">Order Summary</h3>
                   <div className="space-y-1 text-sm">
@@ -261,7 +266,7 @@ export default function Order() {
                     </div>
                   </div>
                 </div>
-                
+
                 <Button 
                   type="submit" 
                   className="w-full"
